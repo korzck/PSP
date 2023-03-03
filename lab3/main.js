@@ -1,3 +1,6 @@
-const root = document.getElementById('root')
+import { MainPage } from "./pages/main/index.js";
 
-root.insertAdjacentHTML('beforeend', '<button type="button" class="btn btn-primary">Hello world 2!</button>')
+const root = document.getElementById('root');
+
+const mainPage = new MainPage(root);
+mainPage.render();
