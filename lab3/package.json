@@ -1,0 +1,11 @@
+{
+  "name": "lab3",
+  "version": "1.0.0",
+  "description": "my lab task 3",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"This is my test script\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
