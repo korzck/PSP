@@ -1,0 +1,50 @@
+.my-btn { 
+    margin-right: 5px;
+    margin-top: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: #4e8397;
+    color: white;
+    font-size: 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    user-select: none;
+    transition-duration: 200ms;
+} 
+
+.my-btn:hover {
+    opacity: 0.8;
+}
+
+.my-btn:active {
+    filter: brightness(120%);
+}
+
+.my-btn.primary { 
+    background: #845ec2;
+}
+
+.my-btn.secondary { 
+    background: #d5cabd;
+}
+
+
+.my-btn.execute { 
+    width: 110px;
+    border-radius: 32px;
+}
+
+
+.result { 
+    width: 220px;
+    height: 50px;
+    margin-bottom: 15px;
+    padding-right: 10px;
+    background: #4e8397;
+    text-align: right;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
