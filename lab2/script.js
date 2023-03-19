@@ -9,16 +9,51 @@ window.onload = function(){
     
     digitButtons = document.querySelectorAll('[id ^= "btn_digit_"]')
     
+    function convertToExp(number) {
+        if (number.length >= 10) {
+            if (+number > 0) {
+                mantissa = (+number)/(10**(number.length-1))
+                if (String(mantissa).length > 6) {
+                    mantissa = String(mantissa)
+                    mantissa = mantissa[0] + mantissa[1] + mantissa[2] + mantissa[3] + mantissa[4]
+                }
+                return String(mantissa) + 'e' + '+' + (number.length-1)
+            }
+            if (+number < 0) {
+                return number
+            }
+        }
+        return number
+    }
+    
     function onDigitButtonClicked(digit) {
         if (!selectedOperation) {
-            if ((digit != '.') || (digit == '.' && !a.includes(digit))) { 
-                a += digit
+            if ((digit != '.') || (digit == '.' && !a.includes(digit))) {
+                if (!(a == '0' && digit == '0')) {
+                    if (a == '0' && digit != '0') {
+                        a = digit 
+                    } else 
+                    a += digit
+                    if (a[0] == '.')
+                    a = '0' + a
+                }
             }
-            outputElement.innerHTML = a
+            
+            // let expForm = convertToExp(a)
+            
+            // console.log(convertToExp(a))
+            outputElement.innerHTML = convertToExp(a)
         } else {
-            if ((digit != '.') || (digit == '.' && !b.includes(digit))) { 
-                b += digit
-                outputElement.innerHTML = b        
+            if ((digit != '.') || (digit == '.' && !b.includes(digit))) {
+                if (!(b == '0' && digit == '0')) {
+                    if (b == '0' && digit != '0') {
+                        b = digit 
+                    } else 
+                        b += digit
+                    if (b[0] == '.')
+                        b = '0' + b
+                }
+                outputElement.innerHTML = convertToExp(b)        
             }
         }
     }
@@ -50,11 +85,11 @@ window.onload = function(){
         if (a === '') return
         else if ( a !== '' && b === '') {
             a = (+a)*(-1)
-            outputElement.innerHTML = a
+            outputElement.innerHTML = convertToExp(a)
         }
         else {
             b = (+b)*(-1)
-            outputElement.innerHTML = b
+            outputElement.innerHTML = convertToExp(b)
         }
     }
     
@@ -84,11 +119,10 @@ window.onload = function(){
                 expressionResult = (+a) / (+b)
                 break;
         }
-        
         a = expressionResult.toString()
         b = ''
         selectedOperation = null
     
-        outputElement.innerHTML = a
+        outputElement.innerHTML = convertToExp(a)
     }
 };
