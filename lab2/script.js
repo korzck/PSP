@@ -11,7 +11,7 @@ window.onload = function(){
     
     function convertToExp(number) {
         if (number.length >= 10) {
-            if (+number > 0) {
+            if (+number > 1) {
                 mantissa = (+number)/(10**(number.length-1))
                 if (String(mantissa).length > 6) {
                     mantissa = String(mantissa)
@@ -19,8 +19,8 @@ window.onload = function(){
                 }
                 return String(mantissa) + 'e' + '+' + (number.length-1)
             }
-            if (+number < 0) {
-                return number
+            if (+number < 1) {
+                
             }
         }
         return number
