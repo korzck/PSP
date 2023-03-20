@@ -18,14 +18,6 @@ export class ProductCardComponent {
         )
     }
 
-    // getData() {
-    //     return {
-    //         id: 1,
-    //         src: "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    //         title: "Акция",
-    //         text: "У меня есть крутая акция"
-    //     }
-    // }
     addListeners(data, listener) {
         document
             .getElementById(`click-card-${data.id}`)
@@ -33,7 +25,6 @@ export class ProductCardComponent {
     }
 
     render(data, listener) {
-        // data = this.getData()
         const html = this.getHTML(data)
         this.parent.insertAdjacentHTML('beforeend', html)
         this.addListeners(data, listener)

@@ -58,7 +58,7 @@ export class MainPage {
         const data = this.getData()
         data.forEach((i) =>{
             const productCard = new ProductCardComponent(this.pageRoot)
-            productCard.render(i, this.clickCard.bind(i))
+            productCard.render(i, this.clickCard.bind(this))
 
         })
     }
