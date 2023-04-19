@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Text Field Demo</title>
+    </head>
+    <body>
+        <h1>Enter Some Text</h1>
+        <input type="text" id="textInput" />
+        <button onclick="printText()">Print Text</button>
+        <p id="output"></p>
+        <script>
+            function parse(expr) {
+                expr = expr.replace(/ /g, "");
+                let expr_arr = [];
+                let num = "";
+                for (let i = 0; i < expr.length; i++) {
+                    let v = expr[i];
+                    if (!isNaN(v)) {
+                        num += v;
+                    } else {
+                        if (num !== "") {
+                            expr_arr.push(num);
+                            num = "";
+                        }
+                        expr_arr.push(v);
+                    }
+                }
+                if (num !== "") {
+                    expr_arr.push(num);
+                }
+                return expr_arr;
+            }
+
+            function shrink(expr) {
+                for (let i = 1; i < expr.length; i++) {
+                    if (i === 1 && expr[i - 1] === "-") {
+                        expr[i] = "-" + expr[i];
+                        expr.splice(i - 1, 1);
+                        continue;
+                    }
+                    if (is_num(expr[i]) && expr[i - 1] === "-") {
+                        let n = parseInt(expr[i]);
+                        expr[i] = (-1 * n).toString();
+                        if (
+                            is_num(expr[i - 2]) ||
+                            expr[i - 2] === ")" ||
+                            expr[i - 2] === "("
+                        ) {
+                            expr[i - 1] = "+";
+                        } else {
+                            expr.splice(i - 1, 1);
+                        }
+                    }
+                }
+                return expr;
+            }
+
+            function solve_mul_div(expr) {
+                for (let i = 1; i < expr.length - 1; i++) {
+                    if (
+                        (expr[i] === "*" || expr[i] === "/") &&
+                        is_num(expr[i - 1]) &&
+                        is_num(expr[i + 1])
+                    ) {
+                        if (expr[i] === "*") {
+                            let n1 = parseInt(expr[i - 1]);
+                            let n2 = parseInt(expr[i + 1]);
+                            expr[i] = (n1 * n2).toString();
+                        } else {
+                            let n1 = parseInt(expr[i - 1]);
+                            let n2 = parseInt(expr[i + 1]);
+                            expr[i] = (n1 / n2).toString();
+                        }
+                        expr.splice(i + 1, 1);
+                        expr.splice(i - 1, 1);
+                        break;
+                    }
+                }
+                return expr;
+            }
+
+            function solve_add_sub(expr) {
+                for (let i = 1; i < expr.length; i++) {
+                    if (
+                        (expr[i] === "+" || expr[i] === "-") &&
+                        is_num(expr[i - 1]) &&
+                        is_num(expr[i + 1])
+                    ) {
+                        if (expr[i] === "+") {
+                            let n1 = parseInt(expr[i - 1]);
+                            let n2 = parseInt(expr[i + 1]);
+                            expr[i] = (n1 + n2).toString();
+                        } else {
+                            let n1 = parseInt(expr[i - 1]);
+                            let n2 = parseInt(expr[i + 1]);
+                            expr[i] = (n1 - n2).toString();
+                        }
+                        expr.splice(i + 1, 1);
+                        expr.splice(i - 1, 1);
+                        i--;
+                    }
+                }
+                return expr;
+            }
+
+            function solve_brackets(expr) {
+                for (let i = 1; i < expr.length - 1; i++) {
+                    if (
+                        is_num(expr[i]) &&
+                        expr[i - 1] == "(" &&
+                        expr[i + 1] == ")"
+                    ) {
+                        expr.splice(i + 1, 1);
+                        expr.splice(i - 1, 1);
+                    }
+                }
+                return expr;
+            }
+
+            function evaluate(expr) {
+                for (let i = 1; ; i++) {
+                    for (let i = 1; i < expr.length - 1; i++) {
+                        expr = solve_mul_div(expr);
+                    }
+                    expr = solve_add_sub(expr);
+                    expr = solve_brackets(expr);
+                    expr = shrink(expr);
+                    if (expr.length == 1) {
+                        let res = parseInt(expr[0]);
+                        return [res, null];
+                    }
+                    if (i > 2 * expr.length) {
+                        return [0, new Error("bad")];
+                    }
+                }
+            }
+
+            function remove(str, i) {
+                return str.slice(0, i).concat(str.slice(i + 1));
+            }
+
+            function is_num(str) {
+                return !isNaN(str);
+            }
+
+            function Calc(str) {
+                return evaluate(parse(str));
+            }
+
+            function printText() {
+                const text = document.getElementById("textInput").value;
+                document.getElementById("output").innerText = Calc(text);
+            }
+        </script>
+    </body>
+</html>
