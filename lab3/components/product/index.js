@@ -1,11 +1,11 @@
 export class ProductComponent {
     constructor(parent) {
-        this.parent = parent
+        this.parent = parent;
     }
 
     getHTML(data) {
-        return (
-            `
+        // console.log(data.id);
+        return `
                 <div class="card mb-3" style="width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
@@ -19,12 +19,11 @@ export class ProductComponent {
                         </div>
                     </div>
                 </div>
-            `
-        )
+            `;
     }
 
     render(data) {
-        const html = this.getHTML(data)
-        this.parent.insertAdjacentHTML('beforeend', html)
+        const html = this.getHTML(data);
+        this.parent.insertAdjacentHTML("beforeend", html);
     }
 }

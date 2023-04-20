@@ -1,11 +1,12 @@
-import {ProductComponent} from "../../components/product/index.js";
-import {BackButtonComponent} from "../../components/back-button/index.js";
-import {MainPage} from "../main/index.js";
+import { ProductComponent } from "../../components/product/index.js";
+import { BackButtonComponent } from "../../components/back-button/index.js";
+import { MainPage } from "../main/index.js";
 
 export class ProductPage {
-    constructor(parent, id) {
-        this.parent = parent
-        this.id = id
+    constructor(parent, id, count) {
+        this.parent = parent;
+        this.id = id;
+        this.count = count;
     }
 
     getData() {
@@ -13,39 +14,35 @@ export class ProductPage {
             id: 1,
             src: "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
             title: `Акция ${this.id}`,
-            text: "Такой акции вы еще не видели"
-        }
+            text: "Такой акции вы еще не видели",
+        };
     }
 
     get pageRoot() {
-        return document.getElementById('product-page')
+        return document.getElementById("product-page");
     }
 
     getHTML() {
-        return (
-            `
+        return `
                 <div id="product-page"></div>
-            `
-        )
+            `;
     }
 
     clickBack() {
-        const mainPage = new MainPage(this.parent)
-        mainPage.render()
+        const mainPage = new MainPage(this.parent);
+        mainPage.render();
     }
 
     render() {
+        this.parent.innerHTML = "";
+        const html = this.getHTML();
+        this.parent.insertAdjacentHTML("beforeend", html);
 
-        
-        this.parent.innerHTML = ''
-        const html = this.getHTML()
-        this.parent.insertAdjacentHTML('beforeend', html)
-        
-        const backButton = new BackButtonComponent(this.pageRoot)
-        backButton.render(this.clickBack.bind(this))
+        const backButton = new BackButtonComponent(this.pageRoot);
+        backButton.render(this.clickBack.bind(this));
 
-        const data = this.getData()
-        const product = new ProductComponent(this.pageRoot)
-        product.render(data)
+        const data = this.getData();
+        const product = new ProductComponent(this.pageRoot);
+        product.render(data);
     }
 }
