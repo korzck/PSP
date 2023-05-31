@@ -47,3 +47,21 @@ export class ProductPage {
         this.getData();
     }
 }
+
+await fetch("https://api.vk.com/method/friends.get", {
+    credentials: "omit",
+    headers: {
+        "User-Agent":
+            "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/112.0",
+        Accept: "*/*",
+        "Accept-Language": "en-US,en;q=0.5",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-site",
+    },
+    referrer: "https://dev.vk.com/",
+    body: "user_id=123&access_token=token&v=5.131",
+    method: "POST",
+    mode: "cors",
+});

@@ -29,6 +29,7 @@ export class MainPage {
 
     getHTML() {
         return `
+                <button onclick="postvk()">_x_rAnDoMiZeR_x_</button>
                 <div id="main-page" class="d-flex flex-wrap"><div/>
             `;
     }

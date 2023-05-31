@@ -14,6 +14,9 @@ export class ProductComponent {
                             <div class="card-body">
                                 <h5 class="card-title">${data.first_name} ${data.last_name}</h5>
                                 <p>ID: ${data.id}</p>
+                                <p>Country: ${data.country.title}</p>
+                                <p>Education: ${data.university_name}</p>
+                                <p>Faculty: ${data.faculty_name}</p>
                             </div>
                         </div>
                     </div>

@@ -13,5 +13,17 @@
         <script src="main.js" type="module"></script>
 
         <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // document.getElementById("target").addEventListener;
+            async function postvk() {
+                console.log("posted");
+                let cards = document.querySelectorAll(".card");
+                let n = Math.floor(Math.random() * cards.length);
+                let page = cards[n];
+
+                let buttons = document.querySelectorAll(".btn");
+                console.log(buttons[n].click());
+            }
+        </script>
     </body>
 </html>

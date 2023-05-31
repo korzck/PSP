@@ -7,7 +7,8 @@
         <h1>Enter Some Text</h1>
         <input type="text" id="textInput" />
         <button onclick="printText()">Print Text</button>
-        <p id="output"></p>
+        <p id="output1"></p>
+        <p id="output2"></p>
         <script>
             function parse(expr) {
                 expr = expr.replace(/ /g, "");
@@ -143,13 +144,25 @@
                 return !isNaN(str);
             }
 
-            function Calc(str) {
+            function Calc1(str) {
                 return evaluate(parse(str));
+            }
+
+            function Calc2(str) {
+                str = str.replace(/\s/g, "");
+                var regex = /\(([^()]+)\)/;
+                while (regex.test(str)) {
+                    var match = regex.exec(str);
+                    var result = solve(match[1]);
+                    str = str.replace(match[0], result);
+                }
+                return eval(str);
             }
 
             function printText() {
                 const text = document.getElementById("textInput").value;
-                document.getElementById("output").innerText = Calc(text);
+                document.getElementById("output1").innerText = Calc1(text);
+                document.getElementById("output2").innerText = Calc2(text);
             }
         </script>
     </body>
