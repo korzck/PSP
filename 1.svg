@@ -1,6 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" height="200">
-  <circle cx="50" cy="50" r="25" fill="blue">
-    <animate attributeName="cx" from="25" to="75" dur="1s" repeatCount="indefinite" />
+<svg id="mySVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" height="200">
+  <circle id="myCircle" cx="50" cy="50" r="25" fill="blue">
+    <animate attributeName="cx" from="25" to="75" dur="s" repeatCount="indefinite" />
     <animate attributeName="fill" values="blue;red;green;blue" dur="2s" repeatCount="indefinite" />
   </circle>
+  
+  <script type="text/javascript">
+    const svg = document.getElementById('mySVG');
+    const circle = document.getElementById('myCircle');
+
+    svg.addEventListener('mousemove', function(event) {
+      const rect = svg.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+
+      // Update the position of the circle
+      circle.setAttribute('cx', mouseX);
+      circle.setAttribute('cy', mouseY);
+
+      // Change the fill color based on mouse position
+      const hue = (mouseX / rect.width) * 36;
+      const saturation = (mouseY / rect.height) * 100;
+      circle.style.fill = `hsl(${hue}, ${saturation}%, 50%)`;
+    });
+  </script>
 </svg>
